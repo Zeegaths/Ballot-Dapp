@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { Theme } from "@radix-ui/themes";
 import App from "./App.jsx";
 import "./index.css";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
