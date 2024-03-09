@@ -14,8 +14,8 @@ const useDelegateVote = (address) => {
     const { walletProvider } = useWeb3ModalProvider();
 
     return useCallback(async () => {
-        if (!isSupportedChain(chainId)) return console.error("Wrong network");
-        if (!isAddress(address)) return console.error("Invalid address");
+        if (!isSupportedChain(chainId)) return toast.error("Wrong network");
+        if (!isAddress(address)) return toast.error("Invalid address");
         const readWriteProvider = getProvider(walletProvider);
         const signer = await readWriteProvider.getSigner();
 
@@ -44,12 +44,24 @@ const useDelegateVote = (address) => {
             console.log("receipt: ", receipt);
 
             if (receipt.status) {
-                return toast.success("giveRightToVote successfull!");
+                return toast.success("Delegate Vote successfull!");
             }
 
-            toast.error("giveRightToVote failed!");
+            toast.error("Delegate Vote failed!");
         } catch (error) {
-            console.error("error: ", error);
+            toast.error(error);
+            let errorText;
+            if (error.reason === "Self-delegation is disallowed.") {
+                errorText = "Self-delegation is disallowed";
+            } else if (error.reason === "You already voted.") {
+                errorText = "You have already voted";
+            } else if (error.reason === "Found loop in delegation.") {
+                errorText = "Found loop in delegation.";
+            } else {
+                errorText = "An unknown error occured";
+            }
+            toast.error(`error: , ${errorText}`);
+            
         }
     }, [address, chainId, walletProvider]);
 };

@@ -25,7 +25,7 @@ const DelegateVote = () => {
                                 placeholder="Enter Voter's Address"
                              />
                         </label>
-                        <Button onClick={() => handleDelegate(to)}>
+                        <Button onClick={() => handleDelegate(address)}>
                             Delegate vote
                         </Button>
                     </Flex>

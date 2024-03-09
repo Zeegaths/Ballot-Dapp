@@ -5,6 +5,7 @@ import { useWeb3ModalAccount, useWeb3ModalProvider,} from "@web3modal/ethers/rea
 import { isSupportedChain } from "../utils";
 import { getProvider } from "../constants/providers";
 import { getProposalsContract } from "../constants/contracts";
+import { toast } from "react-toastify";
 
 const VoteComponent = () => {
 
@@ -27,10 +28,10 @@ const VoteComponent = () => {
             console.log("receipt: ", receipt);
 
             if (receipt.status) {
-                return console.log("vote successfull!");
+                return toast.success("vote successfull!");
             }
 
-            console.log("vote failed!");
+            toast.error("vote failed!");
         } catch (error) {
             console.log(error);
             let errorText;
@@ -42,7 +43,7 @@ const VoteComponent = () => {
                 errorText = "An unknown error occured";
             }
 
-            console.error("error: ", errorText);
+            toast.error("error: ", errorText);
         }
     };
 
